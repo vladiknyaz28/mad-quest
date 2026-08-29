@@ -1,0 +1,238 @@
+/* Стеклянная карточка: фон экрана (карта) просвечивает */
+.parchment {
+  background: rgba(20, 16, 14, 0.32);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #f0e6d4;
+  border-radius: 18px;
+  padding: 1.25rem 1.15rem 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);
+  max-width: 100%;
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(240, 226, 196, 0.7);
+  font-weight: 600;
+}
+
+.title {
+  margin: 0 0 0.85rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #f5ead0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.story {
+  margin: 0 0 1rem;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: rgba(245, 234, 208, 0.95);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.player {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.1rem;
+}
+
+.playerBtn {
+  flex: 1 1 calc(50% - 0.45rem);
+  min-height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #f0e6d4;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.playerBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.playerBtn:not(:disabled):active {
+  transform: scale(0.98);
+}
+
+.puzzle {
+  margin-top: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 10px;
+  background: rgba(20, 16, 14, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.puzzleTitle {
+  margin: 0 0 0.4rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.25rem;
+  color: #f5ead0;
+}
+
+.prompt {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  line-height: 1.45;
+  font-weight: 500;
+  color: rgba(245, 234, 208, 0.95);
+}
+
+/* Почти невидимая подсказка для взрослого */
+.secretDots {
+  display: block;
+  width: fit-content;
+  margin: 0.1rem 0 0.85rem;
+  padding: 0.2rem 0.15rem;
+  min-height: 18px;
+  border: 0;
+  background: transparent;
+  color: rgba(245, 234, 208, 0.12);
+  font-size: 11px;
+  line-height: 1;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  user-select: none;
+}
+
+.secretDots:hover,
+.secretDots:focus-visible {
+  color: rgba(245, 234, 208, 0.35);
+}
+
+.secretDotsRevealed {
+  color: rgba(245, 234, 208, 0.4);
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(240, 226, 196, 0.75);
+}
+
+.input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.7rem 0.85rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  background: rgba(255, 252, 245, 0.88);
+  font-size: 1.05rem;
+  color: #1f140a;
+  margin-bottom: 0.65rem;
+}
+
+.input:focus {
+  outline: 2px solid #7ec8b8;
+  outline-offset: 1px;
+}
+
+.feedback {
+  margin: 0 0 0.65rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.correctBlock {
+  margin: 0 0 0.75rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 10px;
+  background: rgba(31, 92, 82, 0.35);
+  border: 1px solid rgba(125, 222, 160, 0.35);
+}
+
+.correctBlock .feedback {
+  margin: 0 0 0.55rem;
+  font-size: 1.05rem;
+}
+
+.continueBtn {
+  width: 100%;
+  min-height: 48px;
+  border: none;
+  border-radius: 12px;
+  background: #2a7a6a;
+  color: #f5f0e6;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.continueBtn:active {
+  background: #1f5c52;
+}
+
+.ok {
+  color: #7ddea0;
+}
+
+.bad {
+  color: #ff9b9b;
+}
+
+.hint {
+  margin: 0 0 0.75rem;
+  padding: 0.65rem 0.75rem;
+  background: rgba(47, 111, 98, 0.28);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #e8dfd0;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.primaryBtn,
+.secondaryBtn,
+.ghostBtn {
+  min-height: 48px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primaryBtn {
+  border: none;
+  background: #1f5c52;
+  color: #f5f0e6;
+}
+
+.primaryBtn:active {
+  background: #174840;
+}
+
+.secondaryBtn {
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f0e6d4;
+}
+
+.ghostBtn {
+  border: none;
+  background: transparent;
+  color: rgba(240, 226, 196, 0.75);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  min-height: 40px;
+}

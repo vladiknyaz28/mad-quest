@@ -1,0 +1,158 @@
+.panel {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.18);
+}
+
+.toggle {
+  width: 100%;
+  min-height: 44px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.1);
+  color: #f0e6d4;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.toggleOn {
+  background: rgba(155, 40, 40, 0.35);
+  border-color: rgba(255, 140, 140, 0.55);
+  color: #ffd0d0;
+}
+
+.body {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: rgba(240, 226, 196, 0.75);
+}
+
+.hint code {
+  font-size: 0.75rem;
+  color: rgba(190, 230, 210, 0.9);
+}
+
+.meta {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(240, 226, 196, 0.65);
+}
+
+.meta code {
+  font-size: 0.78rem;
+}
+
+.row {
+  padding: 0.55rem 0.6rem;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.rowLabel {
+  margin: 0 0 0.4rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #f0e6d4;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.fileHint {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgba(240, 226, 196, 0.45);
+  font-family: ui-monospace, monospace;
+}
+
+.badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  border-radius: 6px;
+  background: rgba(126, 200, 184, 0.25);
+  color: #b8efe0;
+}
+
+.rowBtns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.recBtn,
+.stopBtn,
+.playBtn,
+.delBtn {
+  min-height: 40px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0 0.7rem;
+}
+
+.recBtn {
+  flex: 1;
+  border: none;
+  background: #8b2e2e;
+  color: #fff5f0;
+}
+
+.stopBtn {
+  flex: 1;
+  border: none;
+  background: #5c1a1a;
+  color: #fff5f0;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.playBtn {
+  flex: 1;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.12);
+  color: #f0e6d4;
+}
+
+.delBtn {
+  border: none;
+  background: transparent;
+  color: rgba(240, 226, 196, 0.7);
+  min-width: 40px;
+}
+
+.recBtn:disabled,
+.stopBtn:disabled,
+.playBtn:disabled,
+.delBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  animation: none;
+}
+
+.error {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #ff9b9b;
+  font-weight: 600;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}

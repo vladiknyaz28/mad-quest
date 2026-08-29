@@ -1,0 +1,70 @@
+.figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.spriteHero {
+  display: block;
+  background-size: 300% 200%;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  background-color: #fff;
+}
+
+.spriteVillain {
+  display: block;
+  background-size: 400% 100%;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+  background-color: #fff;
+}
+
+.villainStub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 800;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.sm .spriteHero,
+.sm .spriteVillain,
+.sm .villainStub {
+  width: 48px;
+  height: 72px;
+  font-size: 1.25rem;
+}
+
+.md .spriteHero,
+.md .spriteVillain,
+.md .villainStub {
+  width: 64px;
+  height: 96px;
+  font-size: 1.5rem;
+}
+
+.lg .spriteHero,
+.lg .spriteVillain,
+.lg .villainStub {
+  width: 84px;
+  height: 126px;
+  font-size: 1.85rem;
+}
+
+.caption {
+  max-width: 90px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  color: inherit;
+}

@@ -1,0 +1,370 @@
+.app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -10%, #1a3d45 0%, transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 100%, #1a2f28 0%, transparent 45%),
+    linear-gradient(180deg, #0b1c24 0%, #0e2420 50%, #0a1814 100%);
+  color: #e8dfd0;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 0.85rem 1rem;
+  background: rgba(11, 28, 36, 0.88);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(196, 168, 110, 0.2);
+}
+
+.brand {
+  margin: 0;
+  text-align: center;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.45rem, 5.5vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #f0e2c4;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 1rem 1rem 2rem;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  animation: fadeIn 0.45s ease-out;
+}
+
+.homeWithBg {
+  min-height: calc(100dvh - 5rem);
+  margin: -1rem;
+  padding: 1.25rem 1rem 2rem;
+  justify-content: flex-end;
+  background-color: #122428;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.homeStudio {
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 0 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.homeWithBg + .homeStudio {
+  margin-top: -0.5rem;
+  padding: 0 1rem 1.5rem;
+}
+
+.homeGlass {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1.15rem 1rem 1.25rem;
+  border-radius: 16px;
+  background: rgba(12, 22, 24, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.4s ease-out;
+}
+
+.homeBgActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 0.85rem;
+}
+
+.changeBgLink {
+  border: none;
+  background: none;
+  color: #7ec8b8;
+  font-size: 0.88rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.presetGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  margin-bottom: 0.9rem;
+}
+
+.presetCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.35rem;
+  border-radius: 12px;
+  border: 1px solid rgba(196, 168, 110, 0.25);
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  color: #e8dfd0;
+  text-align: left;
+}
+
+.presetCard:active {
+  transform: scale(0.98);
+  border-color: rgba(126, 200, 184, 0.55);
+}
+
+.presetThumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  background-color: #1a2c28;
+}
+
+.presetName {
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0 0.15rem 0.15rem;
+}
+
+.cancelPickBtn {
+  width: 100%;
+  margin-top: 0.65rem;
+  min-height: 40px;
+  border: none;
+  background: transparent;
+  color: rgba(232, 223, 208, 0.7);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.block {
+  padding: 1.1rem 1rem;
+  border-radius: 16px;
+  background: rgba(20, 40, 42, 0.65);
+  border: 1px solid rgba(196, 168, 110, 0.18);
+}
+
+.blockTitle {
+  margin: 0 0 0.4rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.35rem;
+  color: #f0e2c4;
+}
+
+.blockText {
+  margin: 0 0 0.9rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: #c5bba8;
+}
+
+.fileInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.fileLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  border-radius: 12px;
+  border: 1.5px dashed rgba(196, 168, 110, 0.45);
+  background: rgba(255, 255, 255, 0.04);
+  color: #e8dfd0;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fileLabel:active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.meta {
+  margin: 0.65rem 0 0;
+  font-size: 0.85rem;
+  color: #a89878;
+  word-break: break-all;
+}
+
+.linkBtn {
+  border: none;
+  background: none;
+  color: #7ec8b8;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: inherit;
+  padding: 0;
+}
+
+.questCard {
+  margin-bottom: 0.75rem;
+}
+
+.questName {
+  margin: 0 0 0.35rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.4rem;
+  color: #f5ead0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+.questDesc {
+  margin: 0 0 0.65rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: rgba(232, 223, 208, 0.9);
+}
+
+.progress {
+  margin: 0 0 0.9rem;
+  font-size: 0.85rem;
+  color: #8fb8ae;
+}
+
+.scenarioPicker {
+  margin: 0.85rem 0 0.35rem;
+}
+
+.scenarioLabel {
+  margin: 0 0 0.45rem;
+  font-size: 0.88rem;
+  color: #c5bba8;
+}
+
+.scenarioGrid {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.scenarioBtn {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 10px;
+  border: 1px solid rgba(196, 168, 110, 0.35);
+  background: rgba(0, 0, 0, 0.25);
+  color: #e8dfd0;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.scenarioBtnActive {
+  border-color: #7ec8b8;
+  background: rgba(126, 200, 184, 0.22);
+  color: #f0e2c4;
+}
+
+.scenarioBtn:active {
+  transform: scale(0.96);
+}
+
+.homeGlass .meta {
+  margin-top: 0.5rem;
+  text-align: center;
+  color: rgba(168, 152, 120, 0.85);
+}
+
+.startBtn {
+  width: 100%;
+  min-height: 52px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #2a7a6a, #1f5c52);
+  color: #f5f0e6;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(31, 92, 82, 0.4);
+}
+
+.startBtn:active {
+  transform: scale(0.98);
+}
+
+.disabledBtn {
+  width: 100%;
+  min-height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(196, 168, 110, 0.2);
+  background: transparent;
+  color: #6a6558;
+  font-size: 0.9rem;
+  cursor: not-allowed;
+}
+
+.playArea {
+  min-height: calc(100dvh - 5rem);
+  margin: -1rem;
+  padding: 1rem;
+  background-color: #122428;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 0;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.playOverlay {
+  min-height: inherit;
+  padding: 0.25rem 0 1.5rem;
+  /* почти прозрачный, чтобы карта/остров были хорошо видны */
+  background: transparent;
+  border-radius: 12px;
+}
+
+.mainPlay {
+  max-width: none;
+  padding: 0;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  margin-bottom: 0.75rem;
+  padding: 0 0.5rem;
+  border: none;
+  background: rgba(0, 0, 0, 0.35);
+  color: #e8dfd0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
