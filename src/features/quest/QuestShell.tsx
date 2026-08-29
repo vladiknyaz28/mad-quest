@@ -12,6 +12,8 @@ import {
 } from './data/presetBackgrounds';
 import { useQuestEngine } from './QuestEngine';
 import { canOpenPoint } from './questMapLogic';
+import { audioPlayer } from '../../shared/audio/audioPlayer';
+import { storyClipKey } from '../../shared/audio/audioManifest';
 import {
   clearBackground,
   getBackgroundMeta,
@@ -118,6 +120,10 @@ export function QuestShell() {
     setWrongPick(false);
     session.beginPointSession(index);
     setOpenPointIndex(index);
+    const card = quest.cards[index];
+    if (card) {
+      void audioPlayer.playClip({ key: storyClipKey(card.id), ttsText: card.story });
+    }
   };
 
   const handleNavGoTo = (index: number) => {

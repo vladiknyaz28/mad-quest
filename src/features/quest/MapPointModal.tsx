@@ -2,6 +2,8 @@ import { useEffect, useId } from 'react';
 import type { AnswerStatus, QuestCard, QuestQuestion } from './questTypes';
 import { getCharacter } from './data/characters';
 import { CharacterPortrait } from './CharacterPortrait';
+import { audioPlayer } from '../../shared/audio/audioPlayer';
+import { promptClipKey, storyClipKey } from '../../shared/audio/audioManifest';
 import styles from './MapPointModal.module.css';
 
 interface MapPointModalProps {
@@ -54,6 +56,18 @@ export function MapPointModal({
 
   const speaker = getCharacter(card.characterId);
 
+  const playStory = () => {
+    void audioPlayer.playClip({ key: storyClipKey(card.id), ttsText: card.story });
+  };
+
+  const playQuestion = () => {
+    if (!currentQuestion) return;
+    void audioPlayer.playClip({
+      key: promptClipKey(card.id),
+      ttsText: currentQuestion.prompt,
+    });
+  };
+
   return (
     <div className={styles.overlay} role="presentation" onClick={pointComplete ? undefined : onClose}>
       <div
@@ -77,6 +91,9 @@ export function MapPointModal({
               </div>
             )}
             <p className={styles.story}>{card.story}</p>
+            <button type="button" className={styles.voiceBtn} onClick={playStory}>
+              🔊 Слушать историю
+            </button>
           </div>
         )}
 
@@ -91,7 +108,12 @@ export function MapPointModal({
           <pre className={styles.puzzleExtra}>{currentQuestion.puzzleExtra}</pre>
         )}
 
-        <p className={styles.question}>{currentQuestion.prompt}</p>
+        <div className={styles.questionRow}>
+          <p className={styles.question}>{currentQuestion.prompt}</p>
+          <button type="button" className={styles.voiceBtnSmall} onClick={playQuestion} aria-label="Озвучить вопрос">
+            🔊
+          </button>
+        </div>
 
         {isReviewMode && !pointComplete && (
           <p className={styles.reviewNote}>Повторное прохождение — прогресс не изменится</p>

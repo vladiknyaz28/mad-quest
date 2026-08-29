@@ -59,6 +59,29 @@ export function suggestedDownloadName(key: string, mimeType?: string): string {
   return `${base}.mp3`;
 }
 
+function legacyBaseNames(key: string): string[] {
+  const primary = audioBaseNameForKey(key);
+  const names: string[] = [];
+  if (primary) names.push(primary);
+
+  const match = /^card:([^:]+):(story|prompt|puzzle)$/.exec(key);
+  if (!match) return names;
+
+  const id = match[1]!;
+  const kind = match[2] === 'puzzle' ? 'prompt' : match[2]!;
+  const cardNum = id.replace(/^point/, '');
+
+  // Старые имена файлов (Flint / ранние записи).
+  names.push(`${id}_${kind}`);
+  if (cardNum !== id) {
+    names.push(`card${cardNum}_${kind}`);
+    names.push(`mad_card${cardNum}_${kind}`);
+  }
+  names.push(`mad_${id}_${kind}`);
+
+  return [...new Set(names)];
+}
+
 export function audioPublicPath(baseName: string, ext: string): string {
   const base = import.meta.env.BASE_URL;
   return `${base}audio/${baseName}${ext}`.replace(/([^:]\/)\/+/g, '$1');
@@ -118,19 +141,21 @@ async function urlExists(url: string): Promise<boolean> {
  * Быстрый таймаут — если файла нет, сразу null (TTS).
  */
 export async function resolveBundledAudioUrl(key: string): Promise<string | null> {
-  const baseName = audioBaseNameForKey(key);
-  if (!baseName) return null;
+  const baseNames = legacyBaseNames(key);
+  if (baseNames.length === 0) return null;
 
   try {
     return await withTimeout(
       (async () => {
-        for (const ext of AUDIO_EXTS) {
-          const url = audioPublicPath(baseName, ext);
-          if (await urlExists(url)) return url;
+        for (const baseName of baseNames) {
+          for (const ext of AUDIO_EXTS) {
+            const url = audioPublicPath(baseName, ext);
+            if (await urlExists(url)) return url;
+          }
         }
         return null;
       })(),
-      1200,
+      2000,
     );
   } catch {
     return null;

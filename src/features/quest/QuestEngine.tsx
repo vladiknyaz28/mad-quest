@@ -11,6 +11,7 @@ import { getCardQuestions, handleAnswer } from './questMapLogic';
 import type { AnswerStatus, Quest, QuestCard, QuestProgress, QuestQuestion } from './questTypes';
 import { clearProgress, loadProgress, saveProgress } from '../../shared/storage/localStore';
 import { audioPlayer } from '../../shared/audio/audioPlayer';
+import { promptClipKey } from '../../shared/audio/audioManifest';
 
 export interface UseQuestEngineResult {
   card: QuestCard | null;
@@ -160,8 +161,15 @@ export function useQuestEngine(quest: Quest): UseQuestEngineResult {
         if (questionIndex >= cardQuestions.length - 1) {
           setStatus('correct');
         } else {
+          const nextQ = cardQuestions[questionIndex + 1];
           setQuestionIndex((i) => i + 1);
           setStatus('idle');
+          if (nextQ && playCard) {
+            void audioPlayer.playClip({
+              key: promptClipKey(playCard.id),
+              ttsText: nextQ.prompt,
+            });
+          }
         }
         return true;
       }
@@ -172,7 +180,7 @@ export function useQuestEngine(quest: Quest): UseQuestEngineResult {
     },
     [
       playCard,
-      cardQuestions.length,
+      cardQuestions,
       completed,
       currentQuestion,
       playPointIndex,
