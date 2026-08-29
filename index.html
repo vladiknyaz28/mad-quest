@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="format-detection" content="telephone=no" />
@@ -40,6 +41,62 @@
         Для игры нужен JavaScript. Включи его в настройках браузера.
       </p>
     </noscript>
+    <script>
+      (function () {
+        var boot = { done: false };
+        window.__MQ_BOOT = boot;
+
+        function showBootError(title, detail) {
+          if (boot.done) return;
+          var root = document.getElementById('root');
+          if (!root) return;
+          root.innerHTML =
+            '<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:#0b1c24;color:#e8dfd0;font-family:system-ui,sans-serif;text-align:center">' +
+            '<div style="max-width:22rem">' +
+            '<h1 style="margin:0 0 .75rem;font-size:1.25rem;color:#f0e2c4">' +
+            title +
+            '</h1>' +
+            '<p style="margin:0 0 1rem;line-height:1.5;opacity:.9">' +
+            detail +
+            '</p>' +
+            '<button type="button" onclick="location.reload()" style="padding:.65rem 1.25rem;border:none;border-radius:.5rem;background:#7ec8b8;color:#0b1c24;font-weight:600;cursor:pointer">Обновить</button>' +
+            '<p style="margin-top:1rem;font-size:.85rem;opacity:.75">Открой в Safari или Chrome:<br>vladiknyaz28.github.io/mad-quest/</p>' +
+            '</div></div>';
+        }
+
+        window.addEventListener(
+          'error',
+          function (event) {
+            var target = event.target;
+            if (target && target.tagName === 'SCRIPT') {
+              showBootError(
+                'Не загрузилось приложение',
+                'Обнови страницу (потяни вниз). Если открываешь из Telegram или WhatsApp — нажми «Открыть в браузере».',
+              );
+            }
+          },
+          true,
+        );
+
+        window.addEventListener('unhandledrejection', function (event) {
+          if (boot.done) return;
+          var reason = event.reason;
+          var message =
+            reason && reason.message ? reason.message : reason ? String(reason) : 'неизвестная ошибка';
+          showBootError('Ошибка запуска', message);
+        });
+
+        window.setTimeout(function () {
+          var root = document.getElementById('root');
+          if (!boot.done && root && /Загрузка квеста/.test(root.textContent || '')) {
+            showBootError(
+              'Долго грузится',
+              'Проверь интернет и обнови страницу. Старая версия в кэше тоже мешает — закрой вкладку и открой ссылку заново.',
+            );
+          }
+        }, 12000);
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
