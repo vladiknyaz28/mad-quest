@@ -1,0 +1,104 @@
+.panel {
+  border-radius: 14px;
+  border: 1px solid rgba(196, 168, 110, 0.2);
+  background: rgba(20, 40, 42, 0.55);
+  overflow: hidden;
+}
+
+.toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  border: none;
+  background: transparent;
+  color: #f0e2c4;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.chevron {
+  font-size: 0.7rem;
+  color: #7ec8b8;
+}
+
+.body {
+  padding: 0 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.block {
+  padding: 0.75rem;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.blockTitle {
+  margin: 0 0 0.4rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #7ec8b8;
+}
+
+.block p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: #c5bba8;
+}
+
+.block p + p,
+.block ul + p {
+  margin-top: 0.45rem;
+}
+
+.legend {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.legend li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #c5bba8;
+}
+
+.dot {
+  flex: 0 0 12px;
+  width: 12px;
+  height: 12px;
+  margin-top: 0.2rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.dotActive {
+  background: #4a90e2;
+}
+
+.dotDone {
+  background: #2ecc71;
+}
+
+.dotLocked {
+  background: #888;
+}
+
+.tip {
+  font-size: 0.82rem !important;
+  color: #a89878 !important;
+}

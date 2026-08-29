@@ -252,12 +252,12 @@ export function useQuestEngine(quest: Quest): UseQuestEngineResult {
   }, []);
 
   const restartQuest = useCallback(() => {
-    clearProgress();
+    clearProgress(quest.id);
     setProgressIndex(0);
     setViewIndex(0);
     setCompleted(false);
     endPointSession();
-  }, [endPointSession]);
+  }, [endPointSession, quest.id]);
 
   return {
     card,

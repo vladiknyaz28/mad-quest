@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import { AudioLibraryPanel } from './AudioLibraryPanel';
 import { CharacterRoster } from './CharacterRoster';
+import { HowToPlayPanel } from './HowToPlayPanel';
 import { QuestMapView } from './QuestMapView';
+import { ScenarioPicker } from './ScenarioPicker';
 import { availableQuests } from './data/madQuest';
 import {
   presetBackgrounds,
@@ -210,28 +212,14 @@ export function QuestShell() {
                 </section>
               ) : (
                 <div className={styles.homeGlass}>
-                  <h2 className={styles.questName}>{quest.name}</h2>
                   <p className={styles.questDesc}>{quest.description}</p>
 
-                  <div className={styles.scenarioPicker}>
-                    <p className={styles.scenarioLabel}>Выбери сценарий:</p>
-                    <div className={styles.scenarioGrid}>
-                      {availableQuests.map((q, index) => (
-                        <button
-                          key={q.id}
-                          type="button"
-                          className={`${styles.scenarioBtn} ${index === questIndex ? styles.scenarioBtnActive : ''}`}
-                          onClick={() => {
-                            setQuestIndex(index);
-                            setScreen('home');
-                            setOpenPointIndex(null);
-                          }}
-                        >
-                          {index + 1}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+                  <ScenarioPicker
+                    key={`${session.progressIndex}-${session.completed}`}
+                    quests={availableQuests}
+                    selectedIndex={questIndex}
+                    onSelect={setQuestIndex}
+                  />
 
                   <p className={styles.progress}>Прогресс: {progress}</p>
                   <button
@@ -263,6 +251,7 @@ export function QuestShell() {
             </div>
 
             <div className={styles.homeStudio}>
+              <HowToPlayPanel />
               <CharacterRoster />
               <AudioLibraryPanel quest={quest} />
             </div>
@@ -272,6 +261,7 @@ export function QuestShell() {
         {screen === 'play' && (
           <QuestMapView
             key={quest.id}
+            scenarioName={quest.name}
             cards={session.cards}
             bgUrl={bgUrl}
             viewIndex={session.cardIndex}

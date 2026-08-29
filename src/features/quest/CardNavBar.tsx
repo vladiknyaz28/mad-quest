@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import type { QuestCard } from './questTypes';
+import { canOpenPoint } from './questMapLogic';
 import styles from './CardNavBar.module.css';
 
 interface CardNavBarProps {
   cards: QuestCard[];
   cardIndex: number;
   totalCards: number;
+  progressIndex: number;
+  questCompleted: boolean;
   currentTitle: string;
   canGoPrev: boolean;
   canGoNext: boolean;
@@ -18,6 +21,8 @@ export function CardNavBar({
   cards,
   cardIndex,
   totalCards,
+  progressIndex,
+  questCompleted,
   currentTitle,
   canGoPrev,
   canGoNext,
@@ -99,18 +104,22 @@ export function CardNavBar({
         <ul className={styles.list} role="listbox" aria-label="Все карточки">
           {cards.map((card, index) => {
             const active = index === cardIndex;
+            const unlocked = canOpenPoint(index, progressIndex, questCompleted);
             return (
               <li key={card.id} role="option" aria-selected={active}>
                 <button
                   type="button"
-                  className={`${styles.listItem} ${active ? styles.listItemActive : ''}`}
+                  className={`${styles.listItem} ${active ? styles.listItemActive : ''} ${!unlocked ? styles.listItemLocked : ''}`}
+                  disabled={!unlocked}
                   onClick={() => {
+                    if (!unlocked) return;
                     onGoTo(index);
                     setListOpen(false);
                   }}
                 >
                   <span className={styles.listNum}>{index + 1}</span>
                   <span className={styles.listName}>{card.title}</span>
+                  {!unlocked && <span className={styles.listLock}>🔒</span>}
                 </button>
               </li>
             );

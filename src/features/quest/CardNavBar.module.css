@@ -115,6 +115,16 @@
   background: rgba(47, 111, 98, 0.4);
 }
 
+.listItemLocked {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.listLock {
+  flex-shrink: 0;
+  font-size: 10px;
+}
+
 .listNum {
   flex-shrink: 0;
   width: 1.1rem;

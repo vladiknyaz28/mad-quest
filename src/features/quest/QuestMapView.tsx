@@ -5,6 +5,7 @@ import { MapPointModal } from './MapPointModal';
 import styles from './QuestMapView.module.css';
 
 interface QuestMapViewProps {
+  scenarioName: string;
   cards: QuestCard[];
   bgUrl: string | null;
   viewIndex: number;
@@ -31,6 +32,7 @@ interface QuestMapViewProps {
 
 /** Экран карты с точками, навигацией и модалкой задания. */
 export function QuestMapView({
+  scenarioName,
   cards,
   bgUrl,
   viewIndex,
@@ -57,12 +59,22 @@ export function QuestMapView({
   const artifactsFound = countArtifacts(progressIndex, questCompleted);
   const openCard = openPointIndex !== null ? cards[openPointIndex] ?? null : null;
   const currentTitle = cards[viewIndex]?.title ?? '';
+  const nextPoint = cards[progressIndex];
+  const hintText = questCompleted
+    ? 'Все точки пройдены — нажми зелёный маркер, чтобы перечитать.'
+    : nextPoint
+      ? `Нажми синий маркер «${nextPoint.title}» или ◀ Список ▶ вверху.`
+      : 'Нажми маркер на карте, чтобы начать задание.';
 
   return (
     <div className={styles.mapScreen}>
       <div className={styles.statusBar} role="status">
-        Найдено артефактов: {artifactsFound} из {cards.length}
+        <span className={styles.statusScenario}>{scenarioName}</span>
+        <span className={styles.statusArtifacts}>
+          Артефакты: {artifactsFound} / {cards.length}
+        </span>
       </div>
+      <p className={styles.mapHint}>{hintText}</p>
 
       <div className={styles.mapViewport}>
         <div className={styles.mapStage}>
@@ -111,6 +123,8 @@ export function QuestMapView({
             cards={cards}
             cardIndex={viewIndex}
             totalCards={cards.length}
+            progressIndex={progressIndex}
+            questCompleted={questCompleted}
             currentTitle={currentTitle}
             canGoPrev={canGoPrev}
             canGoNext={canGoNext}

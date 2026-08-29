@@ -8,13 +8,38 @@
 
 .statusBar {
   flex: 0 0 auto;
-  padding: 0.55rem 1rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
   text-align: center;
-  font-size: 0.92rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: #f0e2c4;
   background: rgba(11, 28, 36, 0.92);
   border-bottom: 1px solid rgba(196, 168, 110, 0.25);
+}
+
+.statusScenario {
+  font-size: 0.78rem;
+  color: #8fb8ae;
+  font-weight: 500;
+}
+
+.statusArtifacts {
+  font-size: 0.92rem;
+}
+
+.mapHint {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0.4rem 1rem;
+  text-align: center;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: #a89878;
+  background: rgba(11, 28, 36, 0.75);
+  border-bottom: 1px solid rgba(196, 168, 110, 0.12);
 }
 
 .mapViewport {
