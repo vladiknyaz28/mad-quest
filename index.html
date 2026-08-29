@@ -1,23 +1,29 @@
 <!doctype html>
 <html lang="ru">
   <head>
+    <script type="module" src="/mad-quest/assets/polyfills-CLa64FLA.js"></script>
+
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/mad-quest/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="theme-color" content="#0b1c24" />
     <meta name="description" content="Mad&amp;Fantomas — городской квест: 4 сценария, карта с 7 точками и загадками для детей" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <title>Mad&amp;Fantomas — Квест</title>
-    <script type="module" crossorigin src="/mad-quest/assets/index-Bks4jPFy.js"></script>
-    <link rel="stylesheet" crossorigin href="/mad-quest/assets/index-Bcb98_JX.css">
+    <script type="module" src="/mad-quest/assets/index-Ck-LaNZZ.js"></script>
+    <link rel="stylesheet" href="/mad-quest/assets/index-B1TC2wcb.css">
+    <script type="module">import'data:text/javascript,if(!import.meta.resolve)throw Error("import.meta.resolve not supported")';import.meta.url;import("_").catch(()=>1);(async function*(){})().next();window.__vite_is_modern_browser=true</script>
+    <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy chunks, syntax error above and the same error below should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
+      <meta name="build-id" content="2026-08-29T18:40:40.193Z" />
   </head>
   <body>
     <div id="root">
@@ -42,5 +48,64 @@
         Для игры нужен JavaScript. Включи его в настройках браузера.
       </p>
     </noscript>
+    <script>
+      (function () {
+        var boot = { done: false };
+        window.__MQ_BOOT = boot;
+
+        function showBootError(title, detail) {
+          if (boot.done) return;
+          var root = document.getElementById('root');
+          if (!root) return;
+          root.innerHTML =
+            '<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:#0b1c24;color:#e8dfd0;font-family:system-ui,sans-serif;text-align:center">' +
+            '<div style="max-width:22rem">' +
+            '<h1 style="margin:0 0 .75rem;font-size:1.25rem;color:#f0e2c4">' +
+            title +
+            '</h1>' +
+            '<p style="margin:0 0 1rem;line-height:1.5;opacity:.9">' +
+            detail +
+            '</p>' +
+            '<button type="button" onclick="location.reload()" style="padding:.65rem 1.25rem;border:none;border-radius:.5rem;background:#7ec8b8;color:#0b1c24;font-weight:600;cursor:pointer">Обновить</button>' +
+            '<p style="margin-top:1rem;font-size:.85rem;opacity:.75">Открой в Safari или Chrome:<br>vladiknyaz28.github.io/mad-quest/</p>' +
+            '</div></div>';
+        }
+
+        window.addEventListener(
+          'error',
+          function (event) {
+            var target = event.target;
+            if (target && target.tagName === 'SCRIPT') {
+              showBootError(
+                'Не загрузилось приложение',
+                'Обнови страницу (потяни вниз). Если открываешь из Telegram или WhatsApp — нажми «Открыть в браузере».',
+              );
+            }
+          },
+          true,
+        );
+
+        window.addEventListener('unhandledrejection', function (event) {
+          if (boot.done) return;
+          var reason = event.reason;
+          var message =
+            reason && reason.message ? reason.message : reason ? String(reason) : 'неизвестная ошибка';
+          showBootError('Ошибка запуска', message);
+        });
+
+        window.setTimeout(function () {
+          var root = document.getElementById('root');
+          if (!boot.done && root && /Загрузка квеста/.test(root.textContent || '')) {
+            showBootError(
+              'Долго грузится',
+              'Проверь интернет и обнови страницу. Старая версия в кэше тоже мешает — закрой вкладку и открой ссылку заново.',
+            );
+          }
+        }, 12000);
+      })();
+    </script>
+    <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
+    <script nomodule id="vite-legacy-polyfill" src="/mad-quest/assets/polyfills-legacy-Bu1JUxuC.js"></script>
+    <script nomodule id="vite-legacy-entry" data-src="/mad-quest/assets/index-legacy-CaJUiQ30.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
   </body>
 </html>
