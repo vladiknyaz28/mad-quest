@@ -9,7 +9,7 @@ if (!root) {
   throw new Error('Root element #root not found');
 }
 
-void voiceRecorder.init();
+void voiceRecorder.init().catch(() => {});
 
 createRoot(root).render(
   <StrictMode>

@@ -29,13 +29,25 @@ function revokeIfBlob(url: string | null): void {
   if (url?.startsWith('blob:')) URL.revokeObjectURL(url);
 }
 
+function resolveDefaultPreset(backgroundFile?: string): PresetBackground {
+  return (
+    presetBackgrounds.find((p) => p.file === backgroundFile) ??
+    presetBackgrounds[0] ?? {
+      id: 'map-quest',
+      name: 'Карта квеста',
+      file: 'backgrounds/map-quest.png',
+    }
+  );
+}
+
 export function QuestShell() {
   const [screen, setScreen] = useState<Screen>('home');
   const [questIndex, setQuestIndex] = useState(0);
   const quest = availableQuests[questIndex]!;
-  const [bgUrl, setBgUrl] = useState<string | null>(null);
-  const [bgName, setBgName] = useState<string | null>(null);
-  const [choosingBg, setChoosingBg] = useState(true);
+  const defaultPreset = resolveDefaultPreset(quest.background);
+  const [bgUrl, setBgUrl] = useState<string | null>(() => presetUrl(defaultPreset.file));
+  const [bgName, setBgName] = useState<string | null>(() => defaultPreset.name);
+  const [choosingBg, setChoosingBg] = useState(false);
   const [openPointIndex, setOpenPointIndex] = useState<number | null>(null);
   const [wrongPick, setWrongPick] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -43,28 +55,22 @@ export function QuestShell() {
   const session = useQuestEngine(quest);
 
   useEffect(() => {
+    const preset = resolveDefaultPreset(quest.background);
+    setBgUrl(presetUrl(preset.file));
+    setBgName(preset.name);
+    setChoosingBg(false);
+
     let loaded: string | null = null;
     void (async () => {
-      const url = await loadBackgroundUrl();
-      if (url) {
-        loaded = url;
-        setBgUrl(url);
-        setBgName(getBackgroundMeta()?.name ?? null);
-        setChoosingBg(false);
-        return;
-      }
-      // Первый запуск: фон из данных квеста (сад у кафе).
-      if (quest.background) {
-        const defaultPreset =
-          presetBackgrounds.find((p) => p.file === quest.background) ??
-          presetBackgrounds[0];
-        if (defaultPreset) {
-          const applied = await saveBackgroundPreset(defaultPreset.name, defaultPreset.file);
-          loaded = applied;
-          setBgUrl(applied);
-          setBgName(defaultPreset.name);
-          setChoosingBg(false);
+      try {
+        const url = await loadBackgroundUrl();
+        if (url) {
+          loaded = url;
+          setBgUrl(url);
+          setBgName(getBackgroundMeta()?.name ?? preset.name);
         }
+      } catch {
+        /* IndexedDB / storage — остаётся пресет по умолчанию */
       }
     })();
     return () => {

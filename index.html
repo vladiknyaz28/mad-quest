@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="format-detection" content="telephone=no" />
     <meta name="theme-color" content="#0b1c24" />
     <meta name="description" content="Mad&amp;Fantomas — городской квест: 4 сценария, карта с 7 точками и загадками для детей" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,7 +18,28 @@
     <title>Mad&amp;Fantomas — Квест</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div
+        style="
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1.5rem;
+          background: #0b1c24;
+          color: #e8dfd0;
+          font-family: system-ui, sans-serif;
+          text-align: center;
+        "
+      >
+        Загрузка квеста…
+      </div>
+    </div>
+    <noscript>
+      <p style="padding: 1.5rem; text-align: center; font-family: system-ui, sans-serif">
+        Для игры нужен JavaScript. Включи его в настройках браузера.
+      </p>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -1,4 +1,6 @@
 .app {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -45,6 +47,7 @@
 }
 
 .homeWithBg {
+  min-height: calc(100vh - 5rem);
   min-height: calc(100dvh - 5rem);
   margin: -1rem;
   padding: 1.25rem 1rem 2rem;
@@ -319,6 +322,7 @@
 }
 
 .playArea {
+  min-height: calc(100vh - 5rem);
   min-height: calc(100dvh - 5rem);
   margin: -1rem;
   padding: 1rem;

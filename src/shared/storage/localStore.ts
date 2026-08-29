@@ -21,8 +21,32 @@ interface ProgressStore {
   quests: Record<string, QuestProgress>;
 }
 
+function safeGetItem(key: string): string | null {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function safeSetItem(key: string, value: string): void {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    /* private mode / quota */
+  }
+}
+
+function safeRemoveItem(key: string): void {
+  try {
+    localStorage.removeItem(key);
+  } catch {
+    /* ignore */
+  }
+}
+
 function readStore(): ProgressStore {
-  const raw = localStorage.getItem(PROGRESS_KEY);
+  const raw = safeGetItem(PROGRESS_KEY);
   if (raw) {
     try {
       const parsed = JSON.parse(raw) as ProgressStore;
@@ -32,14 +56,14 @@ function readStore(): ProgressStore {
     }
   }
 
-  const legacyRaw = localStorage.getItem(LEGACY_PROGRESS_KEY);
+  const legacyRaw = safeGetItem(LEGACY_PROGRESS_KEY);
   if (legacyRaw) {
     try {
       const legacy = JSON.parse(legacyRaw) as QuestProgress;
       if (legacy.questId) {
         const migrated: ProgressStore = { quests: { [legacy.questId]: legacy } };
-        localStorage.setItem(PROGRESS_KEY, JSON.stringify(migrated));
-        localStorage.removeItem(LEGACY_PROGRESS_KEY);
+        safeSetItem(PROGRESS_KEY, JSON.stringify(migrated));
+        safeRemoveItem(LEGACY_PROGRESS_KEY);
         return migrated;
       }
     } catch {
@@ -51,7 +75,7 @@ function readStore(): ProgressStore {
 }
 
 function writeStore(store: ProgressStore): void {
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify(store));
+  safeSetItem(PROGRESS_KEY, JSON.stringify(store));
 }
 
 export function saveProgress(progress: QuestProgress): void {
@@ -76,12 +100,12 @@ export function clearProgress(questId?: string): void {
     writeStore(store);
     return;
   }
-  localStorage.removeItem(PROGRESS_KEY);
-  localStorage.removeItem(LEGACY_PROGRESS_KEY);
+  safeRemoveItem(PROGRESS_KEY);
+  safeRemoveItem(LEGACY_PROGRESS_KEY);
 }
 
 export function getBackgroundMeta(): BackgroundMeta | null {
-  const raw = localStorage.getItem(BG_META_KEY);
+  const raw = safeGetItem(BG_META_KEY);
   if (!raw) return null;
   try {
     const parsed = JSON.parse(raw) as BackgroundMeta & { mimeType?: string };
@@ -105,14 +129,14 @@ async function clearStoredFile(): Promise<void> {
 }
 
 export async function saveBackgroundPreset(name: string, file: string): Promise<string> {
-  await clearStoredFile();
+  void clearStoredFile().catch(() => {});
   const meta: BackgroundMeta = {
     source: 'preset',
     name,
     presetFile: file,
     updatedAt: Date.now(),
   };
-  localStorage.setItem(BG_META_KEY, JSON.stringify(meta));
+  safeSetItem(BG_META_KEY, JSON.stringify(meta));
   return presetUrl(file);
 }
 
@@ -133,7 +157,7 @@ export async function saveBackgroundFile(file: File): Promise<string> {
     mimeType: file.type || 'image/jpeg',
     updatedAt: Date.now(),
   };
-  localStorage.setItem(BG_META_KEY, JSON.stringify(meta));
+  safeSetItem(BG_META_KEY, JSON.stringify(meta));
 
   return URL.createObjectURL(new Blob([buffer], { type: meta.mimeType }));
 }
@@ -146,19 +170,23 @@ export async function loadBackgroundUrl(): Promise<string | null> {
     return presetUrl(meta.presetFile);
   }
 
-  const db = await openQuestDb();
-  const buffer = await new Promise<ArrayBuffer | null>((resolve, reject) => {
-    const tx = db.transaction(BG_STORE, 'readonly');
-    const request = tx.objectStore(BG_STORE).get(BG_ID);
-    request.onsuccess = () => resolve((request.result as ArrayBuffer | undefined) ?? null);
-    request.onerror = () => reject(request.error);
-  });
+  try {
+    const db = await openQuestDb();
+    const buffer = await new Promise<ArrayBuffer | null>((resolve, reject) => {
+      const tx = db.transaction(BG_STORE, 'readonly');
+      const request = tx.objectStore(BG_STORE).get(BG_ID);
+      request.onsuccess = () => resolve((request.result as ArrayBuffer | undefined) ?? null);
+      request.onerror = () => reject(request.error);
+    });
 
-  if (!buffer) return null;
-  return URL.createObjectURL(new Blob([buffer], { type: meta.mimeType || 'image/jpeg' }));
+    if (!buffer) return null;
+    return URL.createObjectURL(new Blob([buffer], { type: meta.mimeType || 'image/jpeg' }));
+  } catch {
+    return null;
+  }
 }
 
 export async function clearBackground(): Promise<void> {
-  localStorage.removeItem(BG_META_KEY);
-  await clearStoredFile();
+  safeRemoveItem(BG_META_KEY);
+  await clearStoredFile().catch(() => {});
 }
