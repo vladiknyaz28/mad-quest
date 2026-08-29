@@ -5,5 +5,5 @@ import react from '@vitejs/plugin-react';
 // GitHub Pages: base = '/<имя-репозитория>/'
 export default defineConfig({
   plugins: [react()],
-  base: '/flint-quest/',
+  base: '/mad-quest/',
 });
